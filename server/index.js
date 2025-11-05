@@ -1,6 +1,6 @@
 import app from "./app.js";
-import { config } from "./config.js";
-import { pool } from "./db.js";
+import config from "./config.js";
+import db_pool from "./db.js";
 
 async function startServer() {
     try {
@@ -21,7 +21,7 @@ async function startApp() {
 }
 
 async function testMyDbConnection() {
-    const conn = await pool.getConnection();
+    const conn = await db_pool.getConnection();
     await conn.ping();
     conn.release();
     console.log(`Database "${config.DB_DATABASE}" is connected.`);

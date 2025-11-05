@@ -1,7 +1,7 @@
 import mysql from "mysql2/promise";
-import { config } from "./config.js";
+import config from "./config.js";
 
-export const pool = mysql.createPool({
+export default mysql.createPool({
     host: config.DB_HOST,
     port: config.DB_PORT,
     database: config.DB_DATABASE,
