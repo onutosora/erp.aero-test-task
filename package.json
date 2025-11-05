@@ -1,0 +1,27 @@
+{
+  "name": "erp.aero-test-task",
+  "version": "1.0.0",
+  "description": "Erp.aero test task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onutosora/erp.aero-test-task.git"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "rest",
+    "api",
+    "cors",
+    "mysql"
+  ],
+  "author": "Artem Agaev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onutosora/erp.aero-test-task/issues"
+  },
+  "homepage": "https://github.com/onutosora/erp.aero-test-task#readme"
+}
