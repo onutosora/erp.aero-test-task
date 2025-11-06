@@ -1,9 +1,9 @@
 import asyncHandler from "express-async-handler";
 import { assertBodyField } from "#utils/httpAssertions.js";
-import { create_user, signin_user, refresh_user, logout_user } from "./user.service.js";
+import service from "./user.service.js";
 import config from "#config.js";
 
-export const get_info = asyncHandler(async (req, res, next) => {
+export const getInfo = asyncHandler(async (req, res, next) => {
 
     const id = req.user;
 
@@ -16,7 +16,7 @@ export const signup = asyncHandler(async (req, res, next) => {
     assertBodyField(req, "id");
     assertBodyField(req, "password");
 
-    await create_user(req.body.id, req.body.password);
+    await service.createUser(req.body.id, req.body.password);
 
     res.json({
         success: true
@@ -27,7 +27,7 @@ export const signin = asyncHandler(async (req, res, next) => {
     assertBodyField(req, "id");
     assertBodyField(req, "password");
 
-    const { access_token, refresh_token } = await signin_user(req.body.id, req.body.password);
+    const { access_token, refresh_token } = await service.signinUser(req.body.id, req.body.password);
 
     res.cookie("refresh_token", refresh_token, {
         httpOnly: true,
@@ -57,13 +57,21 @@ export const refresh = asyncHandler(async (req, res, next) => {
 export const logout = asyncHandler(async (req, res, next) => {
     const refresh_token = req.cookies.refresh_token;
     if (refresh_token) {
-        const authHeader = req.headers.authorization;
-        const access_token = authHeader && authHeader.split(" ")[1];
+        const auth_header = req.headers.authorization;
+        const access_token = auth_header && auth_header.split(" ")[1];
 
-        await logout_user(access_token, refresh_token);
+        await service.logoutUser(access_token, refresh_token);
         res.clearCookie("refresh_token");
     }
     return res.json({
         success: true
     })
 });
+
+export default {
+    getInfo,
+    signup,
+    signin,
+    refresh,
+    logout
+}

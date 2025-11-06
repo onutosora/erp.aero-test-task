@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { get_info, signin, signup, refresh, logout } from "./user.controller.js";
+import { getInfo, logout, signup, signin, refresh } from "./user.controller.js";
 import authenticate from "#middlewares/authenticate.middleware.js";
 
 const router = Router();
 
-router.get("/info",                 authenticate,   get_info);
+router.get("/info",                 authenticate,   getInfo);
 router.post("/logout",              authenticate,   logout);
 
 router.post("/signup",              signup);
