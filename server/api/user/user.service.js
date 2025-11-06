@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import config from "#config.js";
 import db from "#db.js";
 import HttpError from "#utils/httpError.js";
-import { generateAccessToken, generateRefreshToken, refreshAccessToken, blockRefreshToken, blockToken } from "#utils/jwt.js";
+import { generateAccessToken, generateRefreshToken, refreshAccessToken, blockToken } from "#utils/jwt.js";
 
 export async function create_user(id, password) {
 

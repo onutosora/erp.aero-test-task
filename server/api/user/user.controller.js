@@ -56,7 +56,7 @@ export const refresh = asyncHandler(async (req, res, next) => {
 
 export const logout = asyncHandler(async (req, res, next) => {
     const refresh_token = req.cookies.refresh_token;
-    if (token) {
+    if (refresh_token) {
         const authHeader = req.headers.authorization;
         const access_token = authHeader && authHeader.split(" ")[1];
 
