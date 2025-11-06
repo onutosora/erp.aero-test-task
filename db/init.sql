@@ -12,3 +12,11 @@ CREATE TABLE jwt_tokens(
     owner varchar(50) REFERENCES users(id),
     blocked boolean NOT NULL DEFAULT false
 );
+CREATE TABLE files(
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name text,
+    format varchar(10),
+    mime varchar(255),
+    size int,
+    upload_date DATETIME DEFAULT current_timestamp
+);

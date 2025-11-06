@@ -34,7 +34,6 @@ export async function refreshAccessToken(refresh_token) {
 
 export async function verifyAccessToken(access_token) {
     const [rows, _] = await db.query("SELECT owner, blocked FROM jwt_tokens WHERE token = ? AND type = 'access'", [access_token]);
-    console.log(rows);
     const blocked = rows[0]?.blocked;
     const owner = rows[0]?.owner;
     if (blocked) return null;
