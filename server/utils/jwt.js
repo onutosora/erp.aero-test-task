@@ -3,13 +3,21 @@ import config from "#config.js";
 import db from "#db.js";
 
 export async function generateAccessToken(user) {
-    const token = jwt.sign(user, config.JWT_ACCESS_SECRET_KEY, { expiresIn: config.JWT_ACCESS_LIFETIME });
+    const token = jwt.sign(
+        user,
+        config.JWT_ACCESS_SECRET_KEY,
+        { expiresIn: String(config.JWT_ACCESS_LIFETIME)+"m" }
+    );
     await db.query("INSERT INTO jwt_tokens (token, owner, type) VALUES (?, ?, ?)", [token, user.id, 'access']);
     return token;
 }
 
 export async function generateRefreshToken(user) {
-    const token = jwt.sign(user, config.JWT_REFRESH_SECRET_KEY, { expiresIn: config.JWT_REFRESH_LIFETIME });
+    const token = jwt.sign(
+        user,
+        config.JWT_REFRESH_SECRET_KEY,
+        { expiresIn: String(config.JWT_REFRESH_LIFETIME)+"m" }
+    );
     await db.query("INSERT INTO jwt_tokens (token, owner, type) VALUES (?, ?, ?)", [token, user.id, 'refresh']);
     return token;
 }

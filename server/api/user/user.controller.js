@@ -33,7 +33,7 @@ export const signin = asyncHandler(async (req, res, next) => {
         httpOnly: true,
         secure: false,
         sameSite: "lax",
-        maxAge: config.JWT_REFRESH_LIFETIME,
+        maxAge: config.JWT_REFRESH_LIFETIME*60*1000,
     });
 
     res.json({

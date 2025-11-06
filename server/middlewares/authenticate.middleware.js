@@ -7,7 +7,13 @@ const authenticate = asyncHandler(async (req, res, next) => {
     const token = authHeader && authHeader.split(" ")[1];
     if (!token) throw new HttpError(401, "Unauthorized!");
 
-    const payload = await verifyAccessToken(token);
+    let payload = null;
+    try {
+        payload = await verifyAccessToken(token);
+    } catch (error) {
+        
+    }
+     
     if (!payload) throw new HttpError(401, "Unauthorized!");
 
     req.user = payload.id;
