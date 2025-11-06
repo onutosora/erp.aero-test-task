@@ -29,7 +29,12 @@ export async function refreshAccessToken(refresh_token) {
 
     if (!owner || blocked) return null;
 
-    const verified = jwt.verify(refresh_token, config.JWT_REFRESH_SECRET_KEY);
+    let verified = null;
+    try {
+        verified = jwt.verify(refresh_token, config.JWT_REFRESH_SECRET_KEY);
+    } catch (error) {
+        console.log("Error on refresh token verification: ", error);
+    }
 
     if (!verified) return null;
 
@@ -45,7 +50,13 @@ export async function verifyAccessToken(access_token) {
     const blocked = rows[0]?.blocked;
     const owner = rows[0]?.owner;
     if (blocked) return null;
-    const verified = jwt.verify(access_token, config.JWT_ACCESS_SECRET_KEY);
+    let verified = null;
+    try {
+        verified = jwt.verify(access_token, config.JWT_ACCESS_SECRET_KEY);
+    } catch (error) {
+        console.log("Error on access token verification: ", error);
+    }
+    if (!verified) return null;
     if (owner !== verified.id) return null;
     return verified;
 }
